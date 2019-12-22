@@ -2,6 +2,7 @@
 #include "./catch.hpp"
 #include "../include/Point.hpp"
 #include "../include/Ray.hpp"
+#include "../include/Sphere.hpp"
 
 TEST_CASE("Basic arithmetic operations succeeded", "[arithmetics]") {
   Point p(1, 4, 7);
@@ -48,7 +49,7 @@ TEST_CASE("Vector operations succeeded", "[vectors]") {
   REQUIRE(t.z == -10);
 }
 
-TEST_CASE("Ray testing succesful", "[rays]") {
+TEST_CASE("Ray testing succeeded", "[rays]") {
   Ray r(Point(10, 5, 1), Point(2, 4, 6));
 
   REQUIRE(r.origin.x == 10);
@@ -58,4 +59,13 @@ TEST_CASE("Ray testing succesful", "[rays]") {
   REQUIRE(r.destination.x == 2);
   REQUIRE(r.destination.y == 4);
   REQUIRE(r.destination.z == 6);
+}
+
+TEST_CASE("Sphere testing succeeded", "[spheres]") {
+  Sphere s(Point(10, 0, 0), 5, Material::DIFFUSE, Point(255, 0, 0));
+  Ray r(Point(0, 0, 0), Point(1, 0, 0));
+  Ray w(Point(0, 0, 0), Point(0, 1, 0));
+
+  REQUIRE(s.getIntersect(r) == 5);
+  REQUIRE(s.getIntersect(w) == -1);
 }
